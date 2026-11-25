@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Iniciar sesión | Joselito Sport</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{ asset('velzon/assets/images/favicon.ico') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link href="{{ asset('velzon/assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('velzon/assets/css/icons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('velzon/assets/css/app.min.css') }}" rel="stylesheet">
