@@ -10,6 +10,27 @@ class LoginTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_login_assets_use_https_behind_a_tls_proxy(): void
+    {
+        $this->withHeaders([
+            'X-Forwarded-Proto' => 'https',
+            'X-Forwarded-Port' => '443',
+        ])->get('http://sport.joselitogroup.com/login')
+            ->assertOk()
+            ->assertSee('https://sport.joselitogroup.com/velzon/assets/css/app.min.css', false)
+            ->assertSee('https://sport.joselitogroup.com/velzon/assets/libs/particles.js/particles.js', false)
+            ->assertDontSee('http://sport.joselitogroup.com/', false);
+    }
+
+    public function test_login_assets_keep_http_for_local_requests(): void
+    {
+        $this->get('http://localhost/login')
+            ->assertOk()
+            ->assertSee('http://localhost/velzon/assets/css/app.min.css', false)
+            ->assertSee('http://localhost/velzon/assets/libs/particles.js/particles.js', false)
+            ->assertDontSee('https://localhost/', false);
+    }
+
     public function test_guest_can_view_login_and_is_redirected_from_dashboard(): void
     {
         $this->get('/login')->assertOk()->assertSee('Iniciar sesión');
